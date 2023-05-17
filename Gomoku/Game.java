@@ -1,21 +1,44 @@
 package Gomoku;
 import java.util.Scanner;
 
-import javax.xml.namespace.QName;
-
 public class Game implements Constant {
   Board board = new Board();
   Judge judge = new Judge();
 
-  private int turn = 0;
-  private int x = 0, y = 0;
+  private int turn = 1;
+  private String x, y;
   private String stone = "";
-  
+  Scanner sc = new Scanner(System.in);
+
+  // ボードの表示
   public void showGameLog() {
     System.out.println("ターン" + this.turn + ": " + this.stone + " が(" + this.x + "," + this.y + ")に置きました");
     board.showBoard();
-    System.out.println("\n");
+    System.out.println();
   }
+  // 順番の表示
+  public void showIsYourTurn() {
+    System.out.println("ターン" + this.turn + ": " + this.stone + " の番です, 石を打つ場所を入力してください");
+  }
+  // 勝敗の表示
+  public void showYouWin() {
+    System.out.println(this.stone + " の勝利です、おめでとございます");
+  }
+  // 汎用的に処理の共通化
+  public void genernalFunc() {
+    showIsYourTurn(); //あなたの番ですと表示する
+    x = sc.next(); //入力
+    y = sc.next();
+    try {
+      int[] v = this.judge.validateInput(this.x, y, this.stone); //返り値 int x, y
+      board.setBoard(v[0], v[1], this.stone); // ボードにおく
+      showGameLog(); //どこにおいたかを表示する
+      this.turn++; //成功しないとターンが変わらない
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  } 
+
   public void start() {
     board.initBoard();
     board.showBoard();
@@ -23,13 +46,6 @@ public class Game implements Constant {
   }
   public void play() {
     // 横チェック
-    // board.setBoard(8, 8, BLACK_STONE);
-    // board.setBoard(8, 9, BLACK_STONE);
-    // board.setBoard(8, 10, BLACK_STONE);
-    // board.setBoard(8, 11, BLACK_STONE);
-    // board.setBoard(8, 12, BLACK_STONE);
-
-    // 縦チェック
     // board.setBoard(8, 8, BLACK_STONE);
     // board.setBoard(8, 9, BLACK_STONE);
     // board.setBoard(8, 10, BLACK_STONE);
@@ -57,31 +73,24 @@ public class Game implements Constant {
     // board.setBoard(4, 11, BLACK_STONE);
     // board.setBoard(3, 12, BLACK_STONE);
 
-    Scanner sc = new Scanner(System.in);
     while(true) {
-      if(turn % 2 == 0) {
+      if(this.turn % 2 == 1) {
         //先手
-        stone = BLACK_STONE;
-        x = sc.nextInt() - 1;
-        y = sc.nextInt() - 1;
-        board.setBoard(x, y, stone);
-        showGameLog();
+        this.stone = BLACK_STONE;
+        genernalFunc();
+        if(judge.checkWin(this.stone)) { //勝敗判定
+          showYouWin();
+          break; 
+        }
       } else {
         //後手
-        stone = WHITE_STONE;
-        x = sc.nextInt() - 1;
-        y = sc.nextInt() - 1; 
-        board.setBoard(x, y, stone);
-        showGameLog();
+        this.stone = WHITE_STONE;
+        genernalFunc();
+        if(judge.checkWin(this.stone)) { //勝敗判定
+          showYouWin();
+          break; 
+        }
       }
-      if(judge.checkWin(BLACK_STONE))  {
-        System.out.println(BLACK_STONE + " WIN!");
-        break;
-      } else if (judge.checkWin(WHITE_STONE))  {
-        System.out.println(WHITE_STONE + " WIN!");
-        break;
-      } 
-      turn++;
     }
   }
   public void giveup(String client) {}

@@ -9,7 +9,7 @@ public class Board implements Constant{
   // ボードの指定した座標に石を設置する関数
   // ボードに設置するたび、判定処理をする
   public void setBoard(int x, int y, String stone) {
-    if(checkExist(x, y)) {
+    if(!checkExist(x, y)) {
       position[x][y] = stone;
     }
   }
@@ -22,13 +22,11 @@ public class Board implements Constant{
   // ボードの指定した座標に石が存在するか
   public boolean checkExist(int x, int y) {
     if(checkStone(x, y, BLACK_STONE)) {
-      System.out.printf("(%d, %d)にはすでに%s が存在します\n", x, y, BLACK_STONE); //AIに送信
-      return false;
+      return true;
     } else if(checkStone(x, y, WHITE_STONE)) {
-      System.out.printf("(%d, %d)にはすでに%s が存在します\n", x, y, WHITE_STONE); //AIに送信
-      return false;
+      return true;
     } 
-    return true;
+    return false;
   }
 
 
