@@ -39,11 +39,13 @@ public class Game implements Constant {
     }
   } 
 
+  // スタート処理 
   public void start() {
     board.initBoard();
     board.showBoard();
     System.out.println("\n");
   }
+  // プレイ
   public void play() {
     // 横チェック
     // board.setBoard(8, 8, BLACK_STONE);
