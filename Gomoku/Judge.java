@@ -1,7 +1,5 @@
 package Gomoku;
 
-import java.rmi.server.RemoteStub;
-
 public class Judge implements Constant {
   private int count = 0;
   public void addCount() {
@@ -15,9 +13,15 @@ public class Judge implements Constant {
   }  
   Board board = new Board();
 
+  public void validateInput() {
+    // 0<16
+    // is int
+    // is not exist
+  }
+
   public boolean checkWin(String stone) {
     if (checkLines(stone) || checkColumns(stone) || checkSlash(stone) || checkBackSlash(stone)) {
-      System.out.println("WIN!");
+      // System.out.println("WIN!");
       return true;
     }
     return false;

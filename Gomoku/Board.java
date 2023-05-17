@@ -4,6 +4,8 @@ import java.util.stream.IntStream;
 
 public class Board implements Constant{
   private static String [][] position = new String [BOARD_LENGTH][BOARD_LENGTH];
+  // 誰がどこに指したかを表示する関数
+
   // ボードの指定した座標に石を設置する関数
   // ボードに設置するたび、判定処理をする
   public void setBoard(int x, int y, String stone) {
@@ -16,6 +18,7 @@ public class Board implements Constant{
     if(position[x][y].equals(stone)) return true;
     return false;
   }
+  
   // ボードの指定した座標に石が存在するか
   public boolean checkExist(int x, int y) {
     if(checkStone(x, y, BLACK_STONE)) {
@@ -50,6 +53,5 @@ public class Board implements Constant{
       }
       System.out.println();
     }
-    System.out.println("\n");
   }
 }
