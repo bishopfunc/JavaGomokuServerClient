@@ -1,0 +1,9 @@
+{
+  "java.project.sourcePaths": ["src"],
+  "java.project.outputPath": "bin",
+  "java.testmethod": "junit",
+  "java.project.referencedLibraries": ["lib/**/*.jar"],
+
+  "nuxt.isNuxtApp": false,
+  "java.format.settings.url": "eclipse-formatter.xml"
+}
