@@ -5,6 +5,12 @@ kill -9 8574
 
 curl http://localhost/ -X POST -d "Message Body"
 
+export PATH=$PATH:~/ngrok NG
+sudo cp ngrok /usr/local/bin 
+
+nginx
+nginx -s stop
+ngrok http 8080
 
 
 step1: 80 port をあけておく
@@ -24,4 +30,18 @@ closing socket...
 closing server...
 ```
 
-step3: Message Bodyの判定 
+step3: Message Bodyの読み込み 
+```
+started: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=80]
+start >>>
+POST / HTTP/1.1
+Host: localhost
+User-Agent: curl/7.79.1
+Accept: */*
+Content-Length: 12
+Content-Type: application/x-www-form-urlencoded
+
+Message Body
+<<< end
+closing socket...
+```
